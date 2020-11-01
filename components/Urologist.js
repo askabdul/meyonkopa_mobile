@@ -45,7 +45,15 @@ export default function Urologist({navigation}) {
                 onPress={() => {
                   setModalVisible(true);
                 }}>
-                <Text style={{color: "#F98E06", textAlign: "right", paddingTop: 10, fontWeight: "bold"}}>Send Message</Text>
+                <Text
+                  style={{
+                    color: '#F98E06',
+                    textAlign: 'right',
+                    paddingTop: 10,
+                    fontWeight: 'bold',
+                  }}>
+                  Send Message
+                </Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -75,7 +83,15 @@ export default function Urologist({navigation}) {
                 onPress={() => {
                   setModalVisible(true);
                 }}>
-                <Text style={{color: "#F98E06", textAlign: "right", paddingTop: 10, fontWeight: "bold"}}>Send Message</Text>
+                <Text
+                  style={{
+                    color: '#F98E06',
+                    textAlign: 'right',
+                    paddingTop: 10,
+                    fontWeight: 'bold',
+                  }}>
+                  Send Message
+                </Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -94,7 +110,13 @@ export default function Urologist({navigation}) {
                   placeholder="Send a message..."
                   style={styles.modalView}
                 />
-                <View style={{flexDirection: 'row', justifyContent: "space-evenly", position: "relative", bottom: 70}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                    position: 'relative',
+                    bottom: 70,
+                  }}>
                   <TouchableOpacity
                     style={{...styles.openButton, backgroundColor: '#F98E06'}}
                     onPress={() => {

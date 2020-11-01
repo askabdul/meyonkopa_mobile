@@ -6,28 +6,43 @@ import { Image, View, StyleSheet } from "react-native"
 
 export default function Login({navigation}) {
     return (
-        <Container style={styles.container}>
-            <View style={styles.image}>
-                <Image source={require('./../images/logo_1.jpg')} 
-                style= {styles.img}/>
-            </View>
+      <Container style={styles.container}>
+        <View style={styles.image}>
+          <Image
+            source={require('./../images/logo_1.jpg')}
+            style={styles.img}
+          />
+        </View>
+        <View>
+          <View>
+            <Button
+              bordered
+              warning
+              style={{
+                borderRadius: 50,
+                width: 150,
+                marginLeft: 40,
+                marginBottom: 10,
+              }}
+              onPress={() => navigation.navigate('Register')}>
+              <Text style={{marginLeft: 30}}>Register</Text>
+            </Button>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: '#707070', fontSize: 15, marginRight: 5}}>
+              Already have an account?
+            </Text>
             <View>
-                <View >
-                    <Button bordered warning style={{borderRadius: 50, width: 150, marginLeft: 40, marginBottom: 10}}
-                    onPress={() => navigation.navigate("Register")}>
-                        <Text style={{marginLeft: 30}}>Register</Text>
-                    </Button>
-                </View>
-                <View style={{flexDirection: "row"}}>
-                    <Text style={{color:"#707070", fontSize: 15, marginRight: 5 }}>Already have an account?</Text>
-                    <View>
-                        <Text style={{color: "#05389D"}}
-                        onPress={() => navigation.navigate("Login")}>LOGIN</Text>
-                    </View>
-                </View>
+              <Text
+                style={{color: '#05389D'}}
+                onPress={() => navigation.navigate('Login')}>
+                LOGIN
+              </Text>
             </View>
+          </View>
+        </View>
       </Container>
-    )
+    );
 }
 
 

@@ -41,66 +41,89 @@ export default function ProfSignup({navigation}) {
 //     },
 //   ]
     return (
-        <View style={{flex: 1, justifyContent: "space-evenly", alignItems: "center", backgroundColor: "white"}}>
-            <View>
-                <TextInput placeholder="USERNAME"
-                    style={styles.input}/>
-                <TextInput placeholder="PHONE NUMBER"
-                    style={styles.input}/>
-                <TextInput placeholder="EMAIL"
-                    style={styles.input}/>
-                <TextInput placeholder="PASSWORD"
-                    style={styles.input} secureTextEntry/>
-                <SafeAreaView>
-                    <Button bordered warning onPress={() => pickerRef.current.show()} style={styles.input}><Text>Choose Profession</Text></Button>
-                    <Text>You selected {value} as a Profession</Text>
-                </SafeAreaView>
-                <ReactNativePickerModule
-                    pickerRef={pickerRef}
-                    value={value}
-                    title={"Select a language"}
-                    items={dataset_1}
-                    titleStyle={{ color: "white" }}
-                    itemStyle={{ color: "grey" }}
-                    selectedColor="#FC0"
-                    confirmButtonEnabledTextStyle={{ color: "black" }}
-                    confirmButtonDisabledTextStyle={{ color: "grey" }}
-                    cancelButtonTextStyle={{ color: "black" }}
-                    confirmButtonStyle={{
-                    backgroundColor: "white",
-                    }}
-                    cancelButtonStyle={{
-                    backgroundColor: "white",
-                    }}
-                    contentContainerStyle={{
-                    backgroundColor: "white",
-                    }}
-                    onCancel={() => {
-                    console.log("Cancelled")
-                    }}
-                    onValueChange={value => {
-                    console.log("value: ", value)
-                    setValue(value)
-                    }}
-                />
-            </View>
-            <View>
-                <View >
-                    <Button bordered warning style={{borderRadius: 50, width: 150, marginLeft: 30, marginBottom: 10}}
-                    onPress={() => navigation.navigate("Verify")}>
-                        <Text style={{marginLeft: 30}}
-                        >Submit</Text>
-                    </Button>
-                </View>
-                <View style={{flexDirection: "row"}}>
-                    <Text style={{color: "#BCBCBC", marginRight: 5}}>or</Text>
-                    <View>
-                        <Text style={{color: "#05389D"}} onPress={() => navigation.navigate("Register")}>REGISTER AS AN INDIVIDUAL</Text>
-                    </View>
-                </View>
-            </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+          backgroundColor: 'white',
+        }}>
+        <View>
+          <TextInput placeholder="USERNAME" style={styles.input} />
+          <TextInput placeholder="PHONE NUMBER" style={styles.input} />
+          <TextInput placeholder="EMAIL" style={styles.input} />
+          <TextInput
+            placeholder="PASSWORD"
+            style={styles.input}
+            secureTextEntry
+          />
+          <SafeAreaView>
+            <Button
+              bordered
+              warning
+              onPress={() => pickerRef.current.show()}
+              style={styles.input}>
+              <Text>Choose Profession</Text>
+            </Button>
+            <Text>You selected {value} as a Profession</Text>
+          </SafeAreaView>
+          <ReactNativePickerModule
+            pickerRef={pickerRef}
+            value={value}
+            title={'Select a language'}
+            items={dataset_1}
+            titleStyle={{color: 'white'}}
+            itemStyle={{color: 'grey'}}
+            selectedColor="#FC0"
+            confirmButtonEnabledTextStyle={{color: 'black'}}
+            confirmButtonDisabledTextStyle={{color: 'grey'}}
+            cancelButtonTextStyle={{color: 'black'}}
+            confirmButtonStyle={{
+              backgroundColor: 'white',
+            }}
+            cancelButtonStyle={{
+              backgroundColor: 'white',
+            }}
+            contentContainerStyle={{
+              backgroundColor: 'white',
+            }}
+            onCancel={() => {
+              console.log('Cancelled');
+            }}
+            onValueChange={(value) => {
+              console.log('value: ', value);
+              setValue(value);
+            }}
+          />
         </View>
-    )
+        <View>
+          <View>
+            <Button
+              bordered
+              warning
+              style={{
+                borderRadius: 50,
+                width: 150,
+                marginLeft: 30,
+                marginBottom: 10,
+              }}
+              onPress={() => navigation.navigate('Verify')}>
+              <Text style={{marginLeft: 30}}>Submit</Text>
+            </Button>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: '#BCBCBC', marginRight: 5}}>or</Text>
+            <View>
+              <Text
+                style={{color: '#05389D'}}
+                onPress={() => navigation.navigate('Register')}>
+                REGISTER AS AN INDIVIDUAL
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({

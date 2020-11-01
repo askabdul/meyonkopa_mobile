@@ -5,32 +5,41 @@ import { Button, Icon } from "native-base"
 
 export default function Topic({navigation}) {
     return (
-        <View style={{flex: 1, justifyContent: "space-evenly", alignItems: "center"}}>
-            <Icon name="arrow-left" type="FontAwesome" 
-            onPress={() => navigation.goBack()}/>
-            <View>
-                <Text style={{fontSize: 20}}>Find out more about a topic</Text>
-            </View>
-            <View>
-                <Button warning style={styles.btn}
-                onPress={() => navigation.navigate("Pre-Marital Sex")}>
-                    <Text style={styles.btnText}> Pre-Marital sex </Text>
-                </Button>
-                <Button warning style={styles.btn}>
-                    <Text style={styles.btnText}> Menstruation</Text>
-                </Button>
-                <Button warning style={styles.btn}>
-                    <Text style={styles.btnText}> Ovulation </Text>
-                    </Button>
-                <Button warning style={styles.btn}>
-                    <Text style={styles.btnText}> Pregnancy </Text>
-                </Button>
-                <Button warning style={styles.btn}>
-                    <Text style={styles.btnText}> Sex Education </Text>
-                    </Button>
-            </View>
+      <View
+        style={{flex: 1, justifyContent: 'space-evenly', alignItems: 'center'}}>
+        <Icon
+          name="arrow-left"
+          type="FontAwesome"
+          onPress={() => navigation.goBack()}
+        />
+        <View>
+          <Text style={{fontSize: 20}}>Find out more about a topic</Text>
         </View>
-    )
+        <View>
+          <Button
+            warning
+            style={styles.btn}
+            onPress={() => navigation.navigate('Pre-Marital Sex')}>
+            <Text style={styles.btnText}> Pre-Marital sex </Text>
+          </Button>
+          <Button warning style={styles.btn}>
+            <Text style={{...styles.btnText}}>
+              {' '}
+              Menstruation
+            </Text>
+          </Button>
+          <Button warning style={styles.btn}>
+            <Text style={styles.btnText}> Ovulation </Text>
+          </Button>
+          <Button warning style={styles.btn}>
+            <Text style={styles.btnText}> Pregnancy </Text>
+          </Button>
+          <Button warning style={styles.btn}>
+            <Text style={styles.btnText}> Sex Education </Text>
+          </Button>
+        </View>
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -44,7 +53,7 @@ const styles = StyleSheet.create({
     btnText: {
         color: "#ffffff", 
         fontSize: 22, 
-        marginLeft: 90
+        marginLeft: 100
     }
 
 })
