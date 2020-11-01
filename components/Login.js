@@ -11,9 +11,10 @@ export default function Login({navigation}) {
                 <TextInput placeholder="EMAIL"
                 style={styles.input}/>
                 <TextInput placeholder="PASSWORD"
-                style={styles.input} secureTextEntry={true}/>
+                style={styles.input} secureTextEntry/>
                 <View>
-                    <Button bordered warning style={{borderRadius: 50, width: 150, marginLeft: 100}}>
+                    <Button bordered warning style={{borderRadius: 50, width: 150, marginLeft: 100}}
+                    onPress={() => navigation.navigate("Main")}>
                         <Text style={{marginLeft: 35}}>Login</Text>
                     </Button>
                 </View>

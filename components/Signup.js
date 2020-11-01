@@ -1,12 +1,13 @@
 import React from "react";
-import { View, StyleSheet, TextInput} from "react-native";
+import { View, StyleSheet, TextInput, ScrollView} from "react-native";
 import {  Button, Text } from 'native-base';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 
 
 
 export default function Register({navigation}) {
     return (
-        <View style={{flex: 1, justifyContent: "space-evenly", alignItems: "center", backgroundColor: "white"}}>
+        <View style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "white", ...StyleSheet.absoluteFillObject,}}>
             <View>
                 <TextInput placeholder="USERNAME"
                     style={styles.input}/>
@@ -15,11 +16,11 @@ export default function Register({navigation}) {
                 <TextInput placeholder="EMAIL"
                     style={styles.input}/>
                 <TextInput placeholder="PASSWORD"
-                    style={styles.input} secureTextEntry={true}/>
+                    style={styles.input} secureTextEntry/>
             </View>
-            <View>
+            <View >
                 <View >
-                    <Button bordered warning style={{borderRadius: 50, width: 150, marginLeft: 30, marginBottom: 10}}
+                    <Button bordered warning style={{borderRadius: 50, width: 150, marginLeft: 30}}
                     onPress={() => navigation.navigate("Verify")}>
                         <Text style={{marginLeft: 30}}
                         >Submit</Text>
@@ -28,7 +29,7 @@ export default function Register({navigation}) {
                 <View style={{flexDirection: "row"}}>
                     <Text style={{color: "#BCBCBC", marginRight: 5}}>or</Text>
                     <View>
-                        <Text style={{color: "#05389D"}} onPress={() => navigation.navigate("Register")}>Register as a professional</Text>
+                        <Text style={{color: "#05389D"}} onPress={() => navigation.navigate("Professional Signup")}>REGISTER AS A PROFESSIONAL</Text>
                     </View>
                 </View>
             </View>

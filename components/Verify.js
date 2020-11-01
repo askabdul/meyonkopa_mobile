@@ -28,7 +28,7 @@ function Verify({navigation}) {
             </View>
             <View>
                 <Button bordered warning style={{borderRadius: 50, width: 150, marginBottom: 10,alignItems: "center" }}
-                onPress={() => navigation.navigate("Home")}>
+                onPress={() => navigation.navigate("Main")}>
                     <Text style={{marginLeft: 50, color: "#F98E06"}}
                     >Proceed
                     {/* <Icon name='arrow-right' type="FontAwesome" /> */}
