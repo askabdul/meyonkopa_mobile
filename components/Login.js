@@ -42,7 +42,7 @@ export default class Login extends React.Component {
 					AsyncStorage.setItem('User', JSON.stringify(res.data.data))
 					AsyncStorage.setItem('isAuth', 'true')
 					services.axios.defaults.headers.common['Authorization'] = res.data.data.id
-					this.props.navigation.navigate('Home')
+					this.props.navigation.navigate('OtherAgeGroup')
 				}
 			}).catch((err) => {
 				this.refs.loading.close()

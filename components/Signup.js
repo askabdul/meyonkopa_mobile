@@ -1,12 +1,14 @@
 import React from "react";
-import { View, StyleSheet, TextInput, ScrollView} from "react-native";
+import { View, StyleSheet, TextInput, ScrollView, TouchableOpacity} from "react-native";
 import {  Button, Text, Toast } from 'native-base';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import Loading from 'react-native-whc-loading'
 import AsyncStorage from '@react-native-community/async-storage'
 import services from './../services';
-import DateTimePicker from '@react-native-community/datetimepicker';
-// import DatePicker from "react-native-datepicker"
+// import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from "moment"
+
+import DateTimePickerModal from "react-native-modal-datetime-picker"
 
 
 
@@ -21,10 +23,24 @@ export default class Register extends React.Component {
 			email: '',
 			password: '',
       phone: '', 
-      dob: new Date(),
+      dob: "",
 
-      date: new Date()
+      visibility: false,
+      DateDisplay: ""
     }
+  }
+
+  handleConfirm= (date) => {
+    this.setState({dob: date.toLocaleDateString()})
+    this.setState({visibility: false})
+  }
+
+  onPressCancel = () => {
+    this.setState({visibility: false})
+  }
+
+  onPressButton = () => {
+    this.setState({visibility: true})
   }
   
   
@@ -55,29 +71,29 @@ export default class Register extends React.Component {
                 position: "bottom"
             })
 		}else {
-      alert(this.state);
-			// this.refs.loading.show()
-			// services.axios.post(services.endpoints.SIGNUP,{
-			// 	firstName: this.state.firstName,
-			//   	lastName: this.state.lastName,
-			//   	password: this.state.password,
-      //     email: this.state.email,
-      //     phone: this.state.phone
-			// }).then((res) => {
-			// 	if(res.data){
-      //     console.log(res.data);
-			// 		this.refs.loading.close()
-			// 		AsyncStorage.setItem('User', JSON.stringify(res.data.data))
-			// 		AsyncStorage.setItem('isAuth', 'true')
-			// 		this.props.navigation.navigate('Main')
-			// 	}
-			// }).catch((err) => {
-			// 	if(err.response){
-			// 		alert(err.response.data.error.message)
-			// 		console.log(err)
-			// 		this.refs.loading.close()
-			// 	}
-			// })
+      console.log(this.state);
+			this.refs.loading.show()
+			services.axios.post(services.endpoints.SIGNUP,{
+				firstName: this.state.firstName,
+			  	lastName: this.state.lastName,
+			  	password: this.state.password,
+          email: this.state.email,
+          phone: this.state.phone
+			}).then((res) => {
+				if(res.data){
+          console.log(res.data);
+					this.refs.loading.close()
+					AsyncStorage.setItem('User', JSON.stringify(res.data.data))
+					AsyncStorage.setItem('isAuth', 'true')
+					this.props.navigation.navigate('Main')
+				}
+			}).catch((err) => {
+				if(err.response){
+					alert(err.response.data.error.message)
+					console.log(err)
+					this.refs.loading.close()
+				}
+			})
 		}
 		
   }
@@ -135,12 +151,21 @@ export default class Register extends React.Component {
             value={this.state.email}
           />
           <View>
+            <TouchableOpacity onPress={this.onPressButton} style={styles.input}>
+            <Text style={{color: "#ccc", marginVertical: 10}}>DATE OF BIRTH</Text>
+            </TouchableOpacity>
+            <Text style={{marginHorizontal: 40, marginVertical: 5}}>{this.state.dob}</Text>
 
-          <DateTimePicker
+          {/* <DateTimePicker
           value={dob} mode="date"
-          display="default" onDateChange={ dob => this.setState({ dob })} 
+          display="default" onChange={ dob => this.setState({ dob })} 
            placeholder="select date" format="YYYY-MM-DD"
-          style={{...styles.input,  borderWidth: 0 }}/>
+          style={{...styles.input,  borderWidth: 0 }}/> */}
+
+          <DateTimePickerModal 
+          isVisible={this.state.visibility}
+          onConfirm={this.handleConfirm}
+          onCancel={this.onPressCancel} mode="date"/>
           </View>
           <TextInput
             placeholder="PASSWORD"
