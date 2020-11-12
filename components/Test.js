@@ -77,109 +77,162 @@
 // export default Test
 
 
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View
-} from "react-native";
+// import {
+//   Alert,
+//   Modal,
+//   StyleSheet,
+//   Text,
+//   TouchableHighlight,
+//   View
+// } from "react-native";
 
-import { Textarea} from "native-base"
+// import { Textarea} from "native-base"
 
-const Test = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+// const Test = () => {
+//   const [modalVisible, setModalVisible] = useState(false);
+//   return (
+//     <View style={styles.centeredView}>
+//       <Modal
+//         animationType="slide"
+//         transparent={true}
+//         visible={modalVisible}
+//         onRequestClose={() => {
+//           alert("Modal has been closed.");
+//         }}
+//       >
+//         <View style={styles.centeredView}>
+//           <View >
+//                 <Textarea rowSpan={5} bordered placeholder="Textarea" 
+//                 style={styles.modalView}/>
+//                 <View style={{flexDirection: "row"}}>
+//                 <TouchableHighlight
+//                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+//                 onPress={() => {
+//                     setModalVisible(!modalVisible);
+//                 }}
+//                 >
+//                 <Text style={styles.textStyle}>Cancel</Text>
+//                 </TouchableHighlight>
+//                 <TouchableHighlight
+//                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+//                 // onPress={() => {
+//                 //     setModalVisible(!modalVisible);
+//                 // }}
+//                 >
+//                 <Text style={styles.textStyle}>Send</Text>
+//                 </TouchableHighlight>
+
+//             </View>
+//           </View>
+//         </View>
+//       </Modal>
+
+//       <TouchableHighlight
+//         style={styles.openButton}
+//         onPress={() => {
+//           setModalVisible(true);
+//         }}
+//       >
+//         <Text style={styles.textStyle}>Show Modal</Text>
+//       </TouchableHighlight>
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   centeredView: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     marginTop: 22,
+//   },
+//   modalView: {
+//     margin: 20,
+//     backgroundColor: "white",
+//     borderRadius: 20,
+//     padding: 35,
+//     alignItems: "center",
+//     shadowColor: "#000",
+//     shadowOffset: {
+//       width: 0,
+//       height: 2
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 5,
+//     width: 300,
+//     height: 300
+//   },
+//   openButton: {
+//     backgroundColor: "#F194FF",
+//     borderRadius: 20,
+//     padding: 10,
+//     elevation: 2
+//   },
+//   textStyle: {
+//     color: "white",
+//     fontWeight: "bold",
+//     textAlign: "center"
+//   },
+//   modalText: {
+//     marginBottom: 15,
+//     textAlign: "center"
+//   }
+// });
+
+// export default Test;
+
+
+import React, {useState} from 'react';
+import {View, Button, Platform} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+export const AppTest = () => {
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+
   return (
-    <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          alert("Modal has been closed.");
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View >
-                <Textarea rowSpan={5} bordered placeholder="Textarea" 
-                style={styles.modalView}/>
-                <View style={{flexDirection: "row"}}>
-                <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                onPress={() => {
-                    setModalVisible(!modalVisible);
-                }}
-                >
-                <Text style={styles.textStyle}>Cancel</Text>
-                </TouchableHighlight>
-                <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                // onPress={() => {
-                //     setModalVisible(!modalVisible);
-                // }}
-                >
-                <Text style={styles.textStyle}>Send</Text>
-                </TouchableHighlight>
-
-            </View>
-          </View>
-        </View>
-      </Modal>
-
-      <TouchableHighlight
-        style={styles.openButton}
-        onPress={() => {
-          setModalVisible(true);
-        }}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </TouchableHighlight>
+    <View >
+      <View>
+        <Button onPress={showDatepicker} title="Show date picker!" />
+      </View>
+      {/* <View>
+        <Button onPress={showTimepicker} title="Show time picker!" />
+      </View> */}
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    width: 300,
-    height: 300
-  },
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  }
-});
-
-export default Test;
+  export default AppTest

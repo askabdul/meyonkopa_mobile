@@ -4,8 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View } from "react-native"
 
-import StartPage from './StartPage';
-import Topic from "./Topic";
+import OtherPage from './OtherStartPage';
+import OtherTopics from "./OtherTopic";
 import Prof from "./Professional"
 import Pmsex from "./Pmsex";
 import Urologist from "./Urologist";
@@ -16,19 +16,20 @@ const Tabs = createBottomTabNavigator();
 const HomeStack = createStackNavigator()
 
 
-function HomeStackScreen() {
+function OtherHomeStackScreen() {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" component={StartPage} />
-      <HomeStack.Screen name="Topics" component={Topic} />
+      <HomeStack.Screen name="OtherHome" component={OtherPage} />
+      <HomeStack.Screen name="OtherTopic" component={OtherTopics} />
       <HomeStack.Screen name="Professional" component={Prof} />
       <HomeStack.Screen name="Pre-Marital Sex" component={Pmsex} />
       <HomeStack.Screen name="Urologist" component={Urologist} />
     </HomeStack.Navigator>
   );
 }
+// const Incident = createStackNavigator()
 
-function Main() {
+function OtherMain() {
   return (
     <Tabs.Navigator
       screenOptions={({route}) => ({
@@ -52,9 +53,9 @@ function Main() {
         activeTintColor: '#F98E06',
         inactiveTintColor: '#AC9D9D',
       }}>
-      <Tabs.Screen name="Home" component={HomeStackScreen} />
+      <Tabs.Screen name="Home" component={OtherHomeStackScreen} />
     </Tabs.Navigator>
   );
 }
 
-export default Main;
+export default OtherMain;

@@ -3,14 +3,16 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Button, Icon } from "native-base"
 
-export default function Topic({navigation}) {
+export default class Topic extends React.Component {
+  render() {
+
     return (
       <View
         style={{flex: 1, justifyContent: 'space-evenly', alignItems: 'center'}}>
         <Icon
           name="arrow-left"
           type="FontAwesome"
-          onPress={() => navigation.goBack()}
+          onPress={() => this.props.navigation.goBack()}
         />
         <View>
           <Text style={{fontSize: 20}}>Find out more about a topic</Text>
@@ -19,14 +21,11 @@ export default function Topic({navigation}) {
           <Button
             warning
             style={styles.btn}
-            onPress={() => navigation.navigate('Pre-Marital Sex')}>
+            onPress={() => this.props.navigation.navigate('Pre-Marital Sex')}>
             <Text style={styles.btnText}> Pre-Marital sex </Text>
           </Button>
           <Button warning style={styles.btn}>
-            <Text style={{...styles.btnText}}>
-              {' '}
-              Menstruation
-            </Text>
+            <Text style={{...styles.btnText}}> Menstruation</Text>
           </Button>
           <Button warning style={styles.btn}>
             <Text style={styles.btnText}> Ovulation </Text>
@@ -40,6 +39,7 @@ export default function Topic({navigation}) {
         </View>
       </View>
     );
+  }
 }
 
 const styles = StyleSheet.create({

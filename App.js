@@ -9,6 +9,9 @@ import Verify from "./components/Verify";
 import Main from "./components/Main";
 import ProfSignup from "./components/ProfSignup";
 import Topic from "./components/Topic";
+import { Root } from "native-base"
+import Splash from "./components/Splash";
+import OtherMain from "./components/OtherMain";
 
 
 const Stack = createStackNavigator();
@@ -16,18 +19,38 @@ const Stack = createStackNavigator();
 
 function App() {
   return (
-   <NavigationContainer>
-     <Stack.Navigator>
-       <Stack.Screen name="Welcome" component={Welcome} />
-       <Stack.Screen name="Register" component={Signup} />
-       <Stack.Screen name="Login" component={Login} />
-       <Stack.Screen name="Verify" component={Verify} />
-       <Stack.Screen name="Main" component={Main} />
-       <Stack.Screen name="Professional Signup" component={ProfSignup} />
-       <Stack.Screen name="Topics" component={Topic} />
-     </Stack.Navigator>
-   </NavigationContainer>
-  )
+    <Root>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Splash">
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Register" component={Signup} />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            // options={{headerLeft: null}}
+          />
+          <Stack.Screen
+            name="Verify"
+            component={Verify}
+            // options={{headerLeft: null}}
+          />
+          <Stack.Screen
+            name="Main"
+            component={Main}
+            // options={{headerLeft: null}}
+          />
+          <Stack.Screen
+            name="OtherAgeGroup"
+            component={OtherMain}
+            // options={{headerLeft: null}}
+          />
+          <Stack.Screen name="Professional Signup" component={ProfSignup} />
+          <Stack.Screen name="Topics" component={Topic} />
+          <Stack.Screen name="Splash" component={Splash} options={{headerShown: false,}}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Root>
+  );
 }
 
 export default App

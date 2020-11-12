@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-import {  View, Text, ScrollView, Modal, StyleSheet, TouchableHighlight, TouchableOpacity } from "react-native"
+import {  View, Text, ScrollView, Modal, StyleSheet, TouchableOpacity } from "react-native"
 import { Icon, Textarea, Button } from "native-base";
 import UserAvatar from 'react-native-user-avatar';
 
@@ -40,7 +40,7 @@ export default function Urologist({navigation}) {
               <Text>Speciality: Urologist</Text>
               <Text>Bio: Lorem Ipsum</Text>
               <Text>Working Days: Mon-Sun</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 // style={styles.openButton}
                 onPress={() => {
                   setModalVisible(true);
@@ -54,7 +54,7 @@ export default function Urologist({navigation}) {
                   }}>
                   Send Message
                 </Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           </View>
           <View
@@ -78,7 +78,7 @@ export default function Urologist({navigation}) {
               <Text>Speciality: Urologist</Text>
               <Text>Bio: Lorem Ipsum</Text>
               <Text>Working Days: Mon-Sun</Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 // style={styles.openButton}
                 onPress={() => {
                   setModalVisible(true);
@@ -92,7 +92,7 @@ export default function Urologist({navigation}) {
                   }}>
                   Send Message
                 </Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           </View>
           <Modal
@@ -105,7 +105,7 @@ export default function Urologist({navigation}) {
             <View style={styles.centeredView}>
               <View>
                 <Textarea
-                  rowSpan={5}
+                  rowSpan={4}
                   bordered
                   placeholder="Send a message..."
                   style={styles.modalView}
@@ -124,14 +124,14 @@ export default function Urologist({navigation}) {
                     }}>
                     <Text style={styles.textStyle}>Cancel</Text>
                   </TouchableOpacity>
-                  <TouchableHighlight
+                  <TouchableOpacity
                     style={{...styles.openButton, backgroundColor: '#F98E06'}}
                     // onPress={() => {
                     //     setModalVisible(!modalVisible);
                     // }}
                   >
                     <Text style={styles.textStyle}>Send</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -155,8 +155,6 @@ const styles = StyleSheet.create({
     //   paddingBottom: 35,
       alignItems: "center",
       shadowColor: "#000",
-
-      opacity: 0.95,
       shadowOffset: {
         width: 0,
         height: 2
@@ -165,8 +163,8 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       elevation: 5,
-      width: 380,
-      height: 400
+      width: 300,
+      height: 300
     },
     openButton: {
       backgroundColor: "#F194FF",
