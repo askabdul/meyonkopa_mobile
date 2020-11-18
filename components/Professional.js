@@ -22,7 +22,11 @@ export default function Professional({navigation}) {
             warning
             style={styles.btn}
             onPress={() => navigation.navigate('Urologist')}>
-            <Text style={{marginHorizontal: 120, color: "#ffffff", fontSize: 22}}> Urologist </Text>
+            <Text
+              style={{marginHorizontal: 120, color: '#ffffff', fontSize: 22}}>
+              {' '}
+              Urologist{' '}
+            </Text>
           </Button>
           <Button warning style={styles.btn}>
             <Text style={styles.btnText}> General Physician</Text>
@@ -31,7 +35,11 @@ export default function Professional({navigation}) {
             <Text style={styles.btnText}> Psychologist </Text>
           </Button>
           <Button warning style={styles.btn}>
-            <Text style={{marginHorizontal: 120, color: "#ffffff", fontSize: 22}}> Midwife </Text>
+            <Text
+              style={{marginHorizontal: 120, color: '#ffffff', fontSize: 22}}>
+              {' '}
+              Midwife{' '}
+            </Text>
           </Button>
           <Button warning style={styles.btn}>
             <Text style={styles.btnText}> Gynaecologist </Text>

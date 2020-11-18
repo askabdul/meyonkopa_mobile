@@ -1,4 +1,4 @@
-import config from '../config'
+import config from './../config'
 
 const baseUrl = config.baseUrl
 
@@ -7,6 +7,5 @@ export default {
 	USER: baseUrl + 'userAccounts',
 	LOGIN: baseUrl + 'userAccounts/individual-signin',
 	LOG_OUT: baseUrl + 'userAccounts/logout',
-	SIGNUP: baseUrl + 'UserAccounts/individual-signup',
-	GETRESUNIT: baseUrl + "ResponseUnits"
+	SIGNUP: baseUrl + 'userAccounts/individual-signup',
 }

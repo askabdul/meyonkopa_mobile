@@ -1,238 +1,52 @@
-// import React, { useRef, useState } from "react"
-// import { Button, SafeAreaView, Text } from "react-native"
-// import ReactNativePickerModule from "react-native-picker-module"
+import React from "react";
 
-// const Test = () => {
-//   const pickerRef = useRef()
-//   const [value, setValue] = useState()
-//   const dataset_1 = [1, 2, "Java", "Kotlin", "C++", "C#", "PHP"]
-//   const dataset_2 = [
-//     {
-//       value: 101,
-//       label: "Javascript",
-//     },
-//     {
-//       value: "golang_101",
-//       label: "Go",
-//     },
-//     {
-//       value: "kotlin_dsl",
-//       label: "Kotlin",
-//     },
-//     {
-//       value: "java_101",
-//       label: "Java",
-//     },
-//     {
-//       value: "cplusplus",
-//       label: "C++",
-//     },
-//     {
-//       value: "csharp_201",
-//       label: "C#",
-//     },
-//     {
-//       value: "php_201",
-//       label: "PHP",
-//     },
-//   ]
-//   return (
-//     <>
-//       <SafeAreaView>
-//         <Button title="Select a language" onPress={() => pickerRef.current.show()} />
-//         <Text>Selected Item Text: {value}</Text>
-//       </SafeAreaView>
-//       <ReactNativePickerModule
-//         pickerRef={pickerRef}
-//         value={value}
-//         title={"Select a language"}
-//         items={dataset_1}
-//         titleStyle={{ color: "white" }}
-//         itemStyle={{ color: "white" }}
-//         selectedColor="#FC0"
-//         confirmButtonEnabledTextStyle={{ color: "white" }}
-//         confirmButtonDisabledTextStyle={{ color: "grey" }}
-//         cancelButtonTextStyle={{ color: "white" }}
-//         confirmButtonStyle={{
-//           backgroundColor: "rgba(0,0,0,1)",
-//         }}
-//         cancelButtonStyle={{
-//           backgroundColor: "rgba(0,0,0,1)",
-//         }}
-//         contentContainerStyle={{
-//           backgroundColor: "rgba(0,0,0,1)",
-//         }}
-//         onCancel={() => {
-//           console.log("Cancelled")
-//         }}
-//         onValueChange={value => {
-//           console.log("value: ", value)
-//           setValue(value)
-//         }}
-//       />
-//     </>
-//   )
-// }
+import { View, Text, TouchableOpacity } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 
-// export default Test
+import { Icon } from "native-base"
+import services from "./../services"
 
 
-// import React, { useState } from "react";
-
-// import {
-//   Alert,
-//   Modal,
-//   StyleSheet,
-//   Text,
-//   TouchableHighlight,
-//   View
-// } from "react-native";
-
-// import { Textarea} from "native-base"
-
-// const Test = () => {
-//   const [modalVisible, setModalVisible] = useState(false);
-//   return (
-//     <View style={styles.centeredView}>
-//       <Modal
-//         animationType="slide"
-//         transparent={true}
-//         visible={modalVisible}
-//         onRequestClose={() => {
-//           alert("Modal has been closed.");
-//         }}
-//       >
-//         <View style={styles.centeredView}>
-//           <View >
-//                 <Textarea rowSpan={5} bordered placeholder="Textarea" 
-//                 style={styles.modalView}/>
-//                 <View style={{flexDirection: "row"}}>
-//                 <TouchableHighlight
-//                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-//                 onPress={() => {
-//                     setModalVisible(!modalVisible);
-//                 }}
-//                 >
-//                 <Text style={styles.textStyle}>Cancel</Text>
-//                 </TouchableHighlight>
-//                 <TouchableHighlight
-//                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-//                 // onPress={() => {
-//                 //     setModalVisible(!modalVisible);
-//                 // }}
-//                 >
-//                 <Text style={styles.textStyle}>Send</Text>
-//                 </TouchableHighlight>
-
-//             </View>
-//           </View>
-//         </View>
-//       </Modal>
-
-//       <TouchableHighlight
-//         style={styles.openButton}
-//         onPress={() => {
-//           setModalVisible(true);
-//         }}
-//       >
-//         <Text style={styles.textStyle}>Show Modal</Text>
-//       </TouchableHighlight>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   centeredView: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginTop: 22,
-//   },
-//   modalView: {
-//     margin: 20,
-//     backgroundColor: "white",
-//     borderRadius: 20,
-//     padding: 35,
-//     alignItems: "center",
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 2
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 3.84,
-//     elevation: 5,
-//     width: 300,
-//     height: 300
-//   },
-//   openButton: {
-//     backgroundColor: "#F194FF",
-//     borderRadius: 20,
-//     padding: 10,
-//     elevation: 2
-//   },
-//   textStyle: {
-//     color: "white",
-//     fontWeight: "bold",
-//     textAlign: "center"
-//   },
-//   modalText: {
-//     marginBottom: 15,
-//     textAlign: "center"
-//   }
-// });
-
-// export default Test;
-
-
-import React, {useState} from 'react';
-import {View, Button, Platform} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-
-export const AppTest = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };
-
-  return (
-    <View >
-      <View>
-        <Button onPress={showDatepicker} title="Show date picker!" />
-      </View>
-      {/* <View>
-        <Button onPress={showTimepicker} title="Show time picker!" />
-      </View> */}
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}
-    </View>
-  );
+export default class SettingScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Settings'
 };
 
-  export default AppTest
+  state = {
+    User: null
+  }
+
+  componentDidMount = async () => {
+        
+    this.setState({
+        User: JSON.parse(await AsyncStorage.getItem('User'))
+    })
+    // alert(JSON.stringify(this.state.User.token))
+}
+
+
+  logOut = async (tokenId) => {
+    tokenId = this.state.User.token
+    await services.axios.post(services.endpoints.LOG_OUT+`?access_token=${tokenId}`).then()
+    await AsyncStorage.removeItem('User')
+    await AsyncStorage.setItem('isAuth', 'false')
+    await this.props.navigation.navigate('Login')
+  }
+  
+  render() {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableOpacity
+        onPress={this.logOut}>
+          
+          <Icon
+            name="lock"
+            type="FontAwesome"
+            style={{color: '#F98E06', fontSize: 50, padding: 10}}
+          />
+          <Text>LOGOUT</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}

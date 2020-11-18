@@ -22,27 +22,29 @@ function App() {
     <Root>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Splash">
-          <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Register" component={Signup} />
+          <Stack.Screen name="Welcome" component={Welcome} 
+          options={{headerLeft: null}}/>
+          <Stack.Screen name="Register" component={Signup} 
+          options={{headerLeft: null}}/>
           <Stack.Screen
             name="Login"
             component={Login}
-            // options={{headerLeft: null}}
+            options={{headerLeft: null}}
           />
           <Stack.Screen
             name="Verify"
             component={Verify}
-            // options={{headerLeft: null}}
+            options={{headerLeft: null}}
           />
           <Stack.Screen
             name="Main"
             component={Main}
-            // options={{headerLeft: null}}
+            options={{headerLeft: null, headerShown: false,}}
           />
           <Stack.Screen
             name="OtherAgeGroup"
             component={OtherMain}
-            // options={{headerLeft: null}}
+            options={{headerLeft: null, headerShown: null}}
           />
           <Stack.Screen name="Professional Signup" component={ProfSignup} />
           <Stack.Screen name="Topics" component={Topic} />

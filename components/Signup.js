@@ -1,108 +1,128 @@
-import React from "react";
-import { View, StyleSheet, TextInput, ScrollView, TouchableOpacity} from "react-native";
-import {  Button, Text, Toast } from 'native-base';
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
-import Loading from 'react-native-whc-loading'
-import AsyncStorage from '@react-native-community/async-storage'
+import React from 'react';
+import {View, StyleSheet, TextInput, KeyboardAvoidingView} from 'react-native';
+import {Button, Text, Toast} from 'native-base';
+import Loading from 'react-native-whc-loading';
+import AsyncStorage from '@react-native-community/async-storage';
 import services from './../services';
-// import DateTimePicker from '@react-native-community/datetimepicker';
-import moment from "moment"
+import moment from 'moment';
 
-import DateTimePickerModal from "react-native-modal-datetime-picker"
-
-
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 export default class Register extends React.Component {
-
   constructor(props) {
-    super(props)
-  
+    super(props);
+
     this.state = {
-      firstName: '',
-			lastName: '',
-			email: '',
-			password: '',
-      phone: '', 
-      dob: "",
+      firstname: '',
+      lastname: '',
+      password: '',
+      email: '',
+      dob: '',
+      phone: '',
 
       visibility: false,
-      DateDisplay: ""
-    }
+    };
   }
 
-  handleConfirm= (date) => {
-    this.setState({dob: date.toLocaleDateString()})
-    this.setState({visibility: false})
-  }
+  handleConfirm = (date) => {
+    this.setState({dob: moment(date).format('YYYY-MM-DD')});
+    this.setState({visibility: false});
+  };
 
   onPressCancel = () => {
-    this.setState({visibility: false})
-  }
+    this.setState({visibility: false});
+  };
 
   onPressButton = () => {
-    this.setState({visibility: true})
-  }
-  
-  
+    this.setState({visibility: true});
+  };
+
   _signUp = () => {
-		if(this.state.firstName === ''){
-			Toast.show({
-                text: "First Name required",
-                position: "bottom"
-            })
-		}else if(this.state.lastName === ''){
-			Toast.show({
-                text: "Last Name required",
-                position: "bottom"
-            })
-		}else if(this.state.phone === ''){
-			Toast.show({
-                text: "Phone # required",
-                position: "bottom"
-            })
-		}else if(this.state.email === ''){
-			Toast.show({
-                text: "Email required",
-                position: "bottom"
-            })
-		}else if(this.state.password === ''){
-			Toast.show({
-                text: "Password required",
-                position: "bottom"
-            })
-		}else {
-      console.log(this.state);
-			this.refs.loading.show()
-			services.axios.post(services.endpoints.SIGNUP,{
-				firstName: this.state.firstName,
-			  	lastName: this.state.lastName,
-			  	password: this.state.password,
+    if (this.state.firstname === '') {
+      Toast.show({
+        text: 'First Name required',
+        position: 'bottom',
+      });
+    } else if (this.state.lastname === '') {
+      Toast.show({
+        text: 'Last Name required',
+        position: 'bottom',
+      });
+    } else if (this.state.phone === '') {
+      Toast.show({
+        text: 'Phone # required',
+        position: 'bottom',
+      });
+    } else if (this.state.email === '') {
+      Toast.show({
+        text: 'Email required',
+        position: 'bottom',
+      });
+    } else if (this.state.dob === '') {
+      Toast.show({
+        text: 'Date of Birth required',
+        position: 'bottom',
+      });
+    } else if (this.state.password === '') {
+      Toast.show({
+        text: 'Password required',
+        position: 'bottom',
+      });
+    } else {
+      this.refs.loading.show();
+      services.axios
+        .post(services.endpoints.SIGNUP, {
+          firstName: this.state.firstname,
+          lastName: this.state.lastname,
+          password: this.state.password,
           email: this.state.email,
-          phone: this.state.phone
-			}).then((res) => {
-				if(res.data){
-          console.log(res.data);
-					this.refs.loading.close()
-					AsyncStorage.setItem('User', JSON.stringify(res.data.data))
-					AsyncStorage.setItem('isAuth', 'true')
-					this.props.navigation.navigate('Main')
-				}
-			}).catch((err) => {
-				if(err.response){
-					alert(err.response.data.error.message)
-					console.log(err)
-					this.refs.loading.close()
-				}
-			})
-		}
-		
-  }
-  
+          dob: this.state.dob,
+          phone: this.state.phone,
+        })
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data);
+            this.refs.loading.close();
+            AsyncStorage.setItem('User', JSON.stringify(res.data.data));
+            AsyncStorage.setItem('isAuth', 'true');
+
+            res.data.data.cat === 'gold'
+              ? this.props.navigation.navigate('Main')
+              : this.props.navigation.navigate('OtherAgeGroup');
+
+            this.setState({
+              firstname: '',
+              lastname: '',
+              password: '',
+              email: '',
+              dob: '',
+              phone: '',
+            });
+          }
+        })
+        .catch((err) => {
+          if (err.response) {
+            // alert(err.response.data.error.message);
+            Toast.show({
+              text: err.response.data.error.message,
+              position: 'bottom',
+              type: 'danger',
+              textStyle: {
+                textAlign: 'center',
+              },
+            });
+            console.log(err);
+            this.refs.loading.close();
+          }
+        });
+    }
+  };
 
   render() {
-    const { dob } = this.state
+    const {firstname, lastname, password, email, dob, phone} = this.state;
     return (
-      <View
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         style={{
           flex: 1,
           justifyContent: 'center',
@@ -115,19 +135,18 @@ export default class Register extends React.Component {
           backgroundColor="transparent"
           indicatorColor="white"
         />
-
         <View>
           <TextInput
             placeholder="FIRSTNAME"
             style={styles.input}
-            onChangeText={(firstName) => this.setState({firstName})}
-            value={this.state.firstName}
+            onChangeText={(firstname) => this.setState({firstname})}
+            value={firstname}
           />
           <TextInput
             placeholder="LASTNAME"
             style={styles.input}
-            onChangeText={(lastName) => this.setState({lastName})}
-            value={this.state.lastName}
+            onChangeText={(lastname) => this.setState({lastname})}
+            value={lastname}
           />
           <TextInput
             placeholder="PHONE NUMBER"
@@ -138,9 +157,9 @@ export default class Register extends React.Component {
             autoCorrect={false}
             secureTextEntry={false}
             onChangeText={(phone) => this.setState({phone})}
-            value={this.state.phone}
+            value={phone}
           />
-          
+
           <TextInput
             placeholder="EMAIL"
             style={styles.input}
@@ -148,81 +167,67 @@ export default class Register extends React.Component {
             returnKeyType="done"
             autoCapitalize="none"
             onChangeText={(email) => this.setState({email})}
-            value={this.state.email}
+            value={email}
           />
           <View>
-            <TouchableOpacity onPress={this.onPressButton} style={styles.input}>
-            <Text style={{color: "#ccc", marginVertical: 10}}>DATE OF BIRTH</Text>
-            </TouchableOpacity>
-            <Text style={{marginHorizontal: 40, marginVertical: 5}}>{this.state.dob}</Text>
+            <Button onPress={this.onPressButton} style={styles.input}>
+              <Text
+                style={{color: '#BCBCBC', marginVertical: 10, fontSize: 14}}>
+                DATE OF BIRTH: {dob}
+              </Text>
+            </Button>
 
-          {/* <DateTimePicker
-          value={dob} mode="date"
-          display="default" onChange={ dob => this.setState({ dob })} 
-           placeholder="select date" format="YYYY-MM-DD"
-          style={{...styles.input,  borderWidth: 0 }}/> */}
-
-          <DateTimePickerModal 
-          isVisible={this.state.visibility}
-          onConfirm={this.handleConfirm}
-          onCancel={this.onPressCancel} mode="date"/>
+            <DateTimePickerModal
+              isVisible={this.state.visibility}
+              onConfirm={this.handleConfirm}
+              onCancel={this.onPressCancel}
+              mode="date"
+            />
           </View>
           <TextInput
             placeholder="PASSWORD"
             style={styles.input}
             secureTextEntry
             onChangeText={(password) => this.setState({password})}
-            value={this.state.password}
+            value={password}
           />
-
         </View>
         <View>
           <View>
             <Button
               bordered
               warning
-              style={{borderRadius: 50, width: 150, marginLeft: 25}}
+              style={{borderRadius: 50, width: 150, marginHorizontal: 60}}
               // onPress={() => this.props.navigation.navigate('Verify')}
               onPress={this._signUp}>
               <Text style={{marginLeft: 30}}>Submit</Text>
             </Button>
           </View>
-          {/* <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', marginVertical: 10}}>
             <Text style={{color: '#BCBCBC', marginRight: 5}}>or</Text>
             <View>
               <Text
                 style={{color: '#05389D'}}
-                onPress={() => this.props.navigation.navigate('Professional Signup')}>
-                REGISTER AS A PROFESSIONAL
+                onPress={() => this.props.navigation.navigate('Login')}>
+                LOGIN IF YOU HAVE AN ACCOUNT
               </Text>
             </View>
-          </View> */}
+          </View>
         </View>
-        {/* {this.state.show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={this.state.date}
-          mode={this.state.mode}
-          is24Hour={true}
-          display="default"
-          onChange={this.onChange}
-        />
-      )} */}
-      </View>
+      </KeyboardAvoidingView>
     );
-    
   }
 }
 
 const styles = StyleSheet.create({
-    input: {
-        height: 50, 
-        borderColor: '#BCBCBC', 
-        borderWidth: 1, 
-        backgroundColor: "#F9F9F9", 
-        width: 330, 
-        paddingHorizontal: 20, 
-        borderRadius: 50,
-        marginBottom: 20
-    }
-})
+  input: {
+    height: 50,
+    borderColor: '#BCBCBC',
+    borderWidth: 1,
+    backgroundColor: '#F9F9F9',
+    width: 330,
+    paddingHorizontal: 20,
+    borderRadius: 50,
+    marginBottom: 20,
+  },
+});

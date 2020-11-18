@@ -18,7 +18,7 @@ export default function Urologist({navigation}) {
           />
           <Text style={{fontSize: 22, padding: 20}}>Urologists</Text>
         </View>
-        <ScrollView>
+        <ScrollView style={{position: "relative"}}>
           <View
             style={{
               paddingHorizontal: 30,
@@ -109,13 +109,15 @@ export default function Urologist({navigation}) {
                   bordered
                   placeholder="Send a message..."
                   style={styles.modalView}
+                  returnKeyType='done'
                 />
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-evenly',
-                    position: 'relative',
-                    bottom: 70,
+                    position: 'absolute',
+                    bottom: 20,
+                    left: 60
                   }}>
                   <TouchableOpacity
                     style={{...styles.openButton, backgroundColor: '#F98E06'}}

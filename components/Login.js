@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, TextInput} from "react-native";
+import { View, StyleSheet, TextInput, KeyboardAvoidingView} from "react-native";
 import {  Button, Text, Toast } from 'native-base';
 import Loading from 'react-native-whc-loading';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -41,21 +41,27 @@ export default class Login extends React.Component {
 					this.refs.loading.close()
 					AsyncStorage.setItem('User', JSON.stringify(res.data.data))
 					AsyncStorage.setItem('isAuth', 'true')
-					services.axios.defaults.headers.common['Authorization'] = res.data.data.id
-					this.props.navigation.navigate('OtherAgeGroup')
+          services.axios.defaults.headers.common['Authorization'] = res.data.data.id
+          res.data.data.cat === 'gold'
+              ? this.props.navigation.navigate('Main')
+              : this.props.navigation.navigate('OtherAgeGroup');
+          this.setState({
+            email: "",
+            password: ""
+          })
 				}
 			}).catch((err) => {
 				this.refs.loading.close()
 				if(err.response){
 					this.refs.loading.close()
 					Toast.show({
-		                text: err.response.data.error.message,
-		                position: "bottom",
-		                type: 'danger',
-		                textStyle: {
-    						textAlign: 'center'
+                text: err.response.data.error.message,
+                position: "bottom",
+                type: 'danger',
+                textStyle: {
+                textAlign: 'center'
   						}
-		            })
+		        })
 					console.log(err.response.data.error.message)
 					console.log(err)
 				}
@@ -64,8 +70,10 @@ export default class Login extends React.Component {
 	}
   
   render() {
+    const {email, password} = this.state
     return (
-      <View
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={{
           flex: 1,
           justifyContent: 'space-evenly',
@@ -81,19 +89,19 @@ export default class Login extends React.Component {
           returnKeyType='done'
           autoCapitalize='none'
           onChangeText = {(email) => this.setState({email})}
-          value = { this.state.email }/>
+          value = { email }/>
           <TextInput
             placeholder="PASSWORD"
             style={styles.input}
             secureTextEntry
             onChangeText = {(password) => this.setState({password})}
-            value = { this.state.password }
+            value = { password }
           />
           <View style={{marginBottom: 20}}>
             <Button
               bordered
               warning
-              style={{borderRadius: 50, width: 150, marginLeft: 100}}
+              style={{borderRadius: 50, width: 150, marginLeft: 90}}
               // onPress={() => this.props.navigation.navigate('OtherAgeGroup')}
               onPress={this.signIn}>
               <Text style={{marginLeft: 35}}>Login</Text>
@@ -112,7 +120,7 @@ export default class Login extends React.Component {
             </View>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

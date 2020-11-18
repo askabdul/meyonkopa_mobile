@@ -7,6 +7,6 @@ axios.defaults.baseURL = config.baseUrl
 
 export default {
 	endpoints,
-	axios,
+	axios
 	// lodash
 }
