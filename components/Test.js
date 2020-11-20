@@ -21,7 +21,7 @@ export default class SettingScreen extends React.Component {
     this.setState({
         User: JSON.parse(await AsyncStorage.getItem('User'))
     })
-    // alert(JSON.stringify(this.state.User.token))
+    alert(JSON.stringify(this.state.User))
 }
 
 

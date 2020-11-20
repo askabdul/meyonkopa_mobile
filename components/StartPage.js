@@ -17,7 +17,7 @@ export default class StartPage extends React.Component {
     this.setState({
       User: JSON.parse(await AsyncStorage.getItem('User')),
     });
-    // alert(JSON.stringify(this.state.User))
+    alert(JSON.stringify(this.state.User))
   };
 
   render() {

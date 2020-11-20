@@ -72,8 +72,8 @@ export default class Register extends React.Component {
       this.refs.loading.show();
       services.axios
         .post(services.endpoints.SIGNUP, {
-          firstName: this.state.firstname,
-          lastName: this.state.lastname,
+          firstname: this.state.firstname,
+          lastname: this.state.lastname,
           password: this.state.password,
           email: this.state.email,
           dob: this.state.dob,

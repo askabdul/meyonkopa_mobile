@@ -1,6 +1,7 @@
 {
   "name": "meYonkopa_mobile",
   "version": "0.0.1",
+  "proxy": "http://localhost:3000",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
