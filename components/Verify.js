@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
-import {Icon, Button} from 'native-base';
+import {Icon, Button, Toast} from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Verify extends React.Component {
   constructor(props) {
@@ -12,8 +13,17 @@ class Verify extends React.Component {
       pin3: '',
       pin4: '',
       pin5: '',
+
+      User: ''
     };
   }
+
+  componentDidMount = async () => {
+    this.setState({
+      User: JSON.parse(await AsyncStorage.getItem('User')),
+    });
+    // alert(JSON.stringify(this.state.User.pin.charAt(0)))
+  };
 
   render() {
     const {pin1, pin2, pin3, pin4, pin5} = this.state;
@@ -27,9 +37,9 @@ class Verify extends React.Component {
         }}>
         <View style={{alignItems: 'center'}}>
           <Icon name="lock" type="FontAwesome" style={{fontSize: 70}} />
-          {/* <Text style={{textAlign: 'center', paddingHorizontal: 15}}>
+          <Text style={{textAlign: 'center', paddingHorizontal: 15}}>
             ENTER THE PASSCODE IN THE MESSAGE TO CONFIRM YOUR ACCOUNT
-          </Text> */}
+          </Text>
         </View>
         <View style={{justifyContent: 'space-evenly', flexDirection: 'row'}}>
           <TextInput
@@ -38,7 +48,16 @@ class Verify extends React.Component {
             ref={'pin1ref'}
             onChangeText={(pin1) => {
               this.setState({pin1});
-              if (pin1 != '') {
+              if (pin1 != this.state.User.pin.charAt(0)) {
+                Toast.show({
+                  text: 'input figure wrong',
+                  position: 'bottom',
+                  type: 'danger',
+                  textStyle: {
+                    textAlign: 'center',
+                  },
+                });
+              } else {
                 this.refs.pin2ref.focus();
               }
             }}
@@ -50,7 +69,16 @@ class Verify extends React.Component {
             ref={'pin2ref'}
             onChangeText={(pin2) => {
               this.setState({pin2});
-              if (pin2 != '') {
+              if (pin2 != this.state.User.pin.charAt(1)) {
+                Toast.show({
+                  text: 'input figure wrong',
+                  position: 'bottom',
+                  type: 'danger',
+                  textStyle: {
+                    textAlign: 'center',
+                  },
+                });
+              } else {
                 this.refs.pin3ref.focus();
               }
             }}
@@ -62,7 +90,16 @@ class Verify extends React.Component {
             ref={'pin3ref'}
             onChangeText={(pin3) => {
               this.setState({pin3});
-              if (pin3 != '') {
+              if (pin3 != this.state.User.pin.charAt(2)) {
+                Toast.show({
+                  text: 'input figure wrong',
+                  position: 'bottom',
+                  type: 'danger',
+                  textStyle: {
+                    textAlign: 'center',
+                  },
+                });
+              } else {
                 this.refs.pin4ref.focus();
               }
             }}
@@ -74,7 +111,16 @@ class Verify extends React.Component {
             ref={'pin4ref'}
             onChangeText={(pin4) => {
               this.setState({pin4});
-              if (pin4 != '') {
+              if (pin4 != this.state.User.pin.charAt(3)) {
+                Toast.show({
+                  text: 'input figure wrong',
+                  position: 'bottom',
+                  type: 'danger',
+                  textStyle: {
+                    textAlign: 'center',
+                  },
+                });
+              } else {
                 this.refs.pin5ref.focus();
               }
             }}
@@ -86,14 +132,25 @@ class Verify extends React.Component {
             ref={'pin5ref'}
             onChangeText={(pin5) => {
               this.setState({pin5});
-              if (pin5 != '') {
-                alert('thanks');
+              if (pin5 != this.state.User.pin.charAt(4)) {
+                Toast.show({
+                  text: 'input figure wrong',
+                  position: 'bottom',
+                  type: 'danger',
+                  textStyle: {
+                    textAlign: 'center',
+                  },
+                });
+              } else {
+                this.state.User.cat === 'gold'
+                  ? this.props.navigation.navigate('Main')
+                  : this.props.navigation.navigate('OtherAgeGroup');
               }
             }}
             value={pin5}
           />
         </View>
-        <View>
+        {/* <View>
           <Button
             bordered
             warning
@@ -106,10 +163,10 @@ class Verify extends React.Component {
             onPress={() => this.props.navigation.navigate('OtherAgeGroup')}>
             <Text style={{marginLeft: 50, color: '#F98E06'}}>
               Proceed
-              {/* <Icon name='arrow-right' type="FontAwesome" /> */}
+              <Icon name='arrow-right' type="FontAwesome" />
             </Text>
           </Button>
-        </View>
+        </View> */}
       </View>
     );
   }

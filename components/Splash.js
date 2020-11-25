@@ -11,7 +11,7 @@ const Splash = ({navigation}) => {
   }, []);
 
   return (
-    <LinearGradient colors={['#ccc', '#eee']} style={{...styles.home, alignItems: "center",
+    <LinearGradient colors={['#fff', '#fff']} style={{...styles.home, alignItems: "center",
     justifyContent: "center",
     shadowColor: '#707070',
     shadowOffset: {width: 0, height: 1},
@@ -20,7 +20,7 @@ const Splash = ({navigation}) => {
         <Image
             source={require('./../images/logo_1.jpg')}
             resizeMode="contain"
-            style={{width: 200,height: 200,borderRadius: 100,}}
+            style={{width: 400,height: 400,borderRadius: 100,}}
         />
     </LinearGradient>
   );

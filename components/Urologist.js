@@ -1,12 +1,56 @@
 import React, {useState} from "react";
 
-import {  View, Text, ScrollView, Modal, StyleSheet, TouchableOpacity } from "react-native"
-import { Icon, Textarea, Button } from "native-base";
+import {  View, Text, ScrollView, StyleSheet, TouchableOpacity, TextInput } from "react-native"
+import { Icon, Textarea, Button, Toast } from "native-base";
 import UserAvatar from 'react-native-user-avatar';
+import Modal from 'react-native-modal';
+import services from './../services';
 
-export default function Urologist({navigation}) {
-  const [modalVisible, setModalVisible] = useState(false);
 
+
+export default class Urologist extends React.Component {
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       modalVisible: false,
+       message: "",
+       profesionalId: ""
+    }
+  }
+
+send = () => {
+  if (this.state.message == '') {
+    Toast.show({
+      text: 'message cannot be empty',
+      position: 'bottom',
+    });
+  } else {
+    services.axios.post(services.endpoints.SEND, {
+      message: this.state.message
+    })
+    .then((res) => {
+      if(res.data) {
+        console.log(res.data);
+      }
+    })
+    this.setState({
+      modalVisible: !this.state.modalVisible
+    })
+    Toast.show({
+      text: 'message sent',
+      position: 'top',
+      type: "success"
+    });
+    
+  }
+  
+}
+
+
+  
+  render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
         <View style={{marginTop: 20, flexDirection: 'row'}}>
@@ -14,7 +58,7 @@ export default function Urologist({navigation}) {
             name="arrow-left"
             type="FontAwesome"
             style={{padding: 20}}
-            onPress={() => navigation.goBack()}
+            onPress={() => this.props.navigation.goBack()}
           />
           <Text style={{fontSize: 22, padding: 20}}>Urologists</Text>
         </View>
@@ -41,10 +85,11 @@ export default function Urologist({navigation}) {
               <Text>Bio: Lorem Ipsum</Text>
               <Text>Working Days: Mon-Sun</Text>
               <TouchableOpacity
-                // style={styles.openButton}
-                onPress={() => {
-                  setModalVisible(true);
-                }}>
+                // onPress={this.send}
+                onPress={() => this.setState({
+                  modalVisible: !this.state.modalVisible
+                })}
+                >
                 <Text
                   style={{
                     color: '#F98E06',
@@ -79,9 +124,10 @@ export default function Urologist({navigation}) {
               <Text>Bio: Lorem Ipsum</Text>
               <Text>Working Days: Mon-Sun</Text>
               <TouchableOpacity
-                // style={styles.openButton}
                 onPress={() => {
-                  setModalVisible(true);
+                  this.setState({
+                    modalVisible: !this.state.modalVisible
+                  })
                 }}>
                 <Text
                   style={{
@@ -98,39 +144,39 @@ export default function Urologist({navigation}) {
           <Modal
             animationType="slide"
             transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              alert('Modal has been closed.');
-            }}>
+            visible={this.state.modalVisible}
+            >
             <View style={styles.centeredView}>
               <View>
+              {/* <Textarea rowSpan={5} bordered placeholder="Textarea" /> */}
                 <Textarea
-                  rowSpan={4}
+                  onChangeText={(message) => this.setState({message})}
+                  value={this.state.message}
                   bordered
+                  rowSpan={5}
                   placeholder="Send a message..."
-                  style={styles.modalView}
-                  returnKeyType='done'
+                  style={{width: 300,height: 200, backgroundColor: "#fff",}}
                 />
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-evenly',
-                    position: 'absolute',
-                    bottom: 20,
-                    left: 60
+                    alignItems:"center",
+                    backgroundColor: "grey",
+                    height: 50
                   }}>
                   <TouchableOpacity
                     style={{...styles.openButton, backgroundColor: '#F98E06'}}
                     onPress={() => {
-                      setModalVisible(!modalVisible);
+                      this.setState({
+                        modalVisible: !this.state.modalVisible
+                      })
                     }}>
                     <Text style={styles.textStyle}>Cancel</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={{...styles.openButton, backgroundColor: '#F98E06'}}
-                    // onPress={() => {
-                    //     setModalVisible(!modalVisible);
-                    // }}
+                    onPress={this.send}
                   >
                     <Text style={styles.textStyle}>Send</Text>
                   </TouchableOpacity>
@@ -141,6 +187,8 @@ export default function Urologist({navigation}) {
         </ScrollView>
       </View>
     );
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -154,17 +202,14 @@ const styles = StyleSheet.create({
       margin: 20,
       backgroundColor: "white",
       borderRadius: 20,
-    //   paddingBottom: 35,
       alignItems: "center",
       shadowColor: "#000",
+      position: "relative", zIndex: 999,
       shadowOffset: {
         width: 0,
         height: 2
       },
       padding: 20,
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
       width: 300,
       height: 300
     },
@@ -173,8 +218,6 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       width: 100,
       padding: 10,
-      marginBottom: 30,
-      elevation: 2
     },
     textStyle: {
       color: "white",

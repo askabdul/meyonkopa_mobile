@@ -8,4 +8,5 @@ export default {
 	LOGIN: baseUrl + 'userAccounts/individual-signin',
 	LOG_OUT: baseUrl + 'userAccounts/logout',
 	SIGNUP: baseUrl + 'userAccounts/individual-signup',
+	SEND: baseUrl + 'messages'
 }

@@ -85,10 +85,10 @@ export default class Register extends React.Component {
             this.refs.loading.close();
             AsyncStorage.setItem('User', JSON.stringify(res.data.data));
             AsyncStorage.setItem('isAuth', 'true');
-
-            res.data.data.cat === 'gold'
-              ? this.props.navigation.navigate('Main')
-              : this.props.navigation.navigate('OtherAgeGroup');
+            this.props.navigation.navigate('Verify')
+            // res.data.data.cat === 'gold'
+            //   ? this.props.navigation.navigate('Main')
+            //   : this.props.navigation.navigate('OtherAgeGroup');
 
             this.setState({
               firstname: '',
