@@ -21,7 +21,7 @@ export default class Login extends React.Component {
   signIn = async() => {
 		if(this.state.email === '' ){
 			Toast.show({
-				text: "Email required",
+				text: "Email needed",
 				position: "bottom"
 			})
 		}else if(this.state.password === ''){
